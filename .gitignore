@@ -1,0 +1,8 @@
+assets/
+bin/
+include/
+lib/
+share/
+*.pdf
+*.json
+*.csv
