@@ -4,6 +4,7 @@ include/
 lib/
 share/
 temp/
+.env
 *.pdf
 *.json
 *.csv
