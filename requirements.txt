@@ -31,6 +31,7 @@ httpcore==1.0.9
 httpx==0.28.1
 hyperframe==6.1.0
 idna==3.11
+load-dotenv==0.1.0
 numpy==2.3.4
 packaging==25.0
 pandas==2.3.3
@@ -44,6 +45,7 @@ pydantic==2.12.3
 pydantic_core==2.41.4
 PyMuPDF==1.26.5
 python-dateutil==2.9.0.post0
+python-dotenv==1.2.1
 pytz==2025.2
 requests==2.32.5
 rsa==4.9.1
