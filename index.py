@@ -1,4 +1,5 @@
 import os, io, sys, pandas as pd
+from dotenv import load_dotenv
 import argparse
 from pdf2image import convert_from_path
 from google.cloud import vision_v1 as vision
@@ -11,15 +12,18 @@ from fpdf import FPDF
 
 
 # ---------- CONFIG ----------
-MODEL_NAME = "gemini-2.5-flash-lite"
+load_dotenv()
+
+TEMP_DIR = os.getenv('TEMP_DIR')
+MODEL_NAME = os.getenv('MODEL_NAME')
+
 OCR_DPI = 300
-os.environ['GEMINI_API_KEY'] = "AIzaSyBhZ1JfldD44Z5MvuvNyzt2Pkra5Iwo66o"
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.dirname(os.path.realpath(__file__)) + "/news-assistant-client.json"
+os.environ['GEMINI_API_KEY'] = os.getenv('GEMINI_API_KEY')
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 vision_client = vision.ImageAnnotatorClient()
 
 client = genai.Client()
 
-TEMP = "/var/www/news-assistant/temp"
 FONT_FACE = "google-noto"
 FONT_PATH = os.path.dirname(os.path.realpath(__file__)) + "/assets/Noto_Sans/static/NotoSans-Regular.ttf"
 FONT_BOLD_PATH = os.path.dirname(os.path.realpath(__file__)) + "/assets/Noto_Sans/static/NotoSans-Bold.ttf"
@@ -90,8 +94,8 @@ def generate_output_pdf(input_path, output_path, results):
 
             # save the image
             image_name = f"image{page_index+1}_{image_index}.{image_ext}"
-            images.append(TEMP + "/" + image_name)
-            with open(TEMP + "/" + image_name, "wb") as image_file:
+            images.append(TEMP_DIR + "/" + image_name)
+            with open(TEMP_DIR + "/" + image_name, "wb") as image_file:
                 image_file.write(image_bytes)
                 # print(f"[+] Image saved as {image_name}")
                 sys.stdout.flush()
