@@ -93,7 +93,8 @@ def generate_output_pdf(input_path, output_path, results):
             image_ext = base_image["ext"]
 
             # save the image
-            image_name = f"image{page_index+1}_{image_index}.{image_ext}"
+            prefix = os.path.splitext(os.path.basename(output_path))[0]
+            image_name = f"{prefix}{page_index+1}_{image_index}.{image_ext}"
             images.append(TEMP_DIR + "/" + image_name)
             with open(TEMP_DIR + "/" + image_name, "wb") as image_file:
                 image_file.write(image_bytes)
